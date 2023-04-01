@@ -1,0 +1,111 @@
+Write a C++ program to delete a given element form a linked list using
+a function of the following prototype:
+int delete Element (int x);
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+using namespace std;
+struct linkedlist
+{
+int data;
+struct linkedlist *next;
+
+};
+struct linkedlist *head=NULL,*tail=NULL;
+void create_list()
+{
+cout&lt;&lt;&quot;***Please Enter 0 at the END of the List***\n&quot;;
+struct linkedlist *position,*current;
+do
+{
+current=(struct linkedlist*)malloc(sizeof(struct linkedlist));
+cout &lt;&lt;&quot;\nEnter Data into the Linked List:- \n&quot;;
+cin &gt;&gt; current-&gt;data;
+current-&gt;next=NULL;
+if(current-&gt;data==0)
+{
+break;
+}
+if(head == NULL)
+{
+head=current;
+}
+else
+{
+position-&gt;next=current;
+}
+position=current;
+}
+while(1);
+{
+cout &lt;&lt; &quot;\nThe Linked List after User Input is:- \n&quot;;
+}
+}
+void display()
+{
+struct linkedlist *p= head;
+while(p!=NULL)
+{
+cout &lt;&lt; p-&gt;data &lt;&lt; &quot; &quot;;
+
+p=p-&gt;next;
+}
+}
+int deleteElement(int x)
+{
+struct linkedlist *position,*current;
+position=current=head;
+int FLAG=0;
+while(current != NULL)
+{
+if(current-&gt;data == x)
+{
+FLAG=1;
+break;
+}
+position=current;
+current=current-&gt;next;
+}
+if (FLAG==1)
+{
+if(current==head)
+{
+head=head-&gt;next;
+free(current);
+}
+else if(current==tail)
+{
+tail=position;
+tail-&gt;next=NULL;
+free(current);
+}
+else
+{
+position-&gt;next=current-&gt;next;
+free(current);
+}
+}
+
+return FLAG;
+}
+int main()
+{
+create_list();
+display();
+int del;
+cout &lt;&lt; &quot;\nEnter the Element To delete from the Given Linked List:-\n&quot;;
+cin &gt;&gt; del;
+int FLAG;
+FLAG=deleteElement(del);
+if(FLAG==1)
+{
+cout&lt;&lt;&quot;\n&quot;;
+cout &lt;&lt; del &lt;&lt; &quot; is successfully deleted from the Given Linked List \n&quot;;
+}
+else
+{
+cout &lt;&lt;&quot;Sorry! Element Not Found, Please Enter a Correct Element\n &quot;;
+}
+cout &lt;&lt; &quot;\nThe Present LinkedList after Deleting an Element from the
+Given Linked List is:- \n&quot;;
+display();
+}
